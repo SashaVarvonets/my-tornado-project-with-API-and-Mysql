@@ -1,3 +1,5 @@
+import data_save
+
 import sys
 import argparse
 from datetime import date, timedelta
@@ -6,6 +8,8 @@ import requests
 import xml.etree.cElementTree as etree
 
 
+
+# Parse additional argument
 try:
     parser = argparse.ArgumentParser()
     parser.add_argument('--date_ranges')
@@ -17,7 +21,7 @@ except:
     start, end = date.today() - timedelta(7), date.today()
 
 
-
+# Data for API
 url = 'http://88.214.193.118/ssp_xml.php'
 endpoint = 'imonomy_US_EAST_imonomy_native'
 apikey = 'qTigpObMPU35vTILorFQ'
@@ -28,29 +32,26 @@ params = {
     'end': end,
 }
 
+# API call
 r = requests.get(url=url, params=params)
-
 tree = etree.fromstring(r.text)
 tree = etree.ElementTree(tree)
-# tree = etree.ElementTree(file='updated.xml')
-# --------------------------------------------------
 root = tree.getroot()
-# print(root.tag, root.attrib)
-# for child in root:
-#     print(child.tag,child.attrib)
-#     for step_child in child:
-#         print(step_child.tag, step_child.text)
-# --------------------------------------------------
-# iter_ = tree.iter()
-#
-# for elem in iter_:
-#     print(elem.tag, elem.attrib, elem.text)
-# --------------------------------------------------
+items = root.getchildren()
 
-appointments = root.getchildren()
 
-for appointment in appointments:
-    print appointment.attrib
-    appt_children = appointment.getchildren()
+lst = []
+for item in items:
+    a = item.attrib
+
+    appt_children = item.getchildren()
     for appt_child in appt_children:
-        print("%s=%s" % (appt_child.tag, appt_child.text))
+        a[appt_child.tag] = appt_child.text
+
+    lst.append(a)
+
+if data_save.save_data(lst):
+    print 'Data successfully saved'
+else:
+    print 'Something goes wrong'
+
