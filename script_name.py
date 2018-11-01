@@ -8,7 +8,6 @@ import requests
 import xml.etree.cElementTree as etree
 
 
-
 # Parse additional argument
 try:
     parser = argparse.ArgumentParser()
@@ -54,4 +53,3 @@ if data_save.save_data(lst):
     print 'Data successfully saved'
 else:
     print 'Something goes wrong'
-

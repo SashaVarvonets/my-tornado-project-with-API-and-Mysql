@@ -32,7 +32,8 @@ def save_data(data_list):
                   "VALUES (%s, %s, %s, %s, %s, %s);"
             mycursor.execute(sql, val)
 
-        except:
+        except Exception as e:
+            print e
             val = (i['responses'], i['impressions'], i['revenue'], date.today(), i['date'])
             sql = "UPDATE API_Data Set responses=%s, impressions=%s, revenue=%s, date_updated=%s WHERE date=%s;"
             mycursor.execute(sql, val)
