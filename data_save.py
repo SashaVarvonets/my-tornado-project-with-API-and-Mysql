@@ -14,8 +14,8 @@ def save_data(data_list, my_db):
             "impressions INT, revenue FLOAT(10,4), date_updated DATE,"
             "date_created DATE, PRIMARY KEY (date));"
         )
-    except Exception as e:
-        print e
+    except:
+        pass
 
     for i in data_list:
         try:
@@ -30,8 +30,8 @@ def save_data(data_list, my_db):
             my_cursor.execute(sql, val)
         my_db.commit()
 
-    my_cursor.execute("SELECT * from API_Data;")
-    for x in my_cursor:
-        print x
+    # my_cursor.execute("SELECT * from API_Data;")
+    # for x in my_cursor:
+    #     print x
 
     return True

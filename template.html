@@ -1,0 +1,42 @@
+<html>
+    <head>
+          <style>
+                table, th, td {
+                    border: 1px solid black;
+                    text-align: center;
+                }
+                table {
+                    border-spacing: 0;
+                }
+          </style>
+    </head>
+    <body>
+        <form name="dates_form" method="get">
+            Start date:<br>
+            <input type="text" name="start_date" value="{{ start_date }}">
+            <br>End date:<br>
+            <input type="text" name="end_date" value="{{ end_date }}">
+                <br><br>
+            <input type="submit" value="Submit">
+    </form>
+
+      <table>
+          <tr>
+              <th>Data</th>
+              <th>Client name</th>
+              <th>Responses</th>
+              <th>Impressions</th>
+              <th>Revenue</th>
+          </tr>
+          {% for item in items %}
+              <tr>
+                  <td>{{ item[0] }}</td>
+                  <td>{{ item[1] }}</td>
+                  <td>{{ item[2] }}</td>
+                  <td>{{ item[3] }}</td>
+                  <td>{{ item[4] }}</td>
+              </tr>
+          {% end %}
+      </table>
+    </body>
+</html>
