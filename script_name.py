@@ -1,13 +1,14 @@
-import data_save
-
-import mysql.connector
 import sys
-import argparse
-from datetime import date, timedelta
-
 import requests
-import xml.etree.cElementTree as etree
+import argparse
 
+import saving_data
+import mysql.connector
+
+from datetime import date, timedelta
+from mysql_db_conector import db
+
+import xml.etree.cElementTree as etree
 
 # Parse additional argument
 try:
@@ -19,16 +20,6 @@ try:
     start, end = namespace.date_ranges.split('_')
 except:
     start, end = date.today() - timedelta(7), date.today()
-
-
-# Data for SQL queries
-my_db = mysql.connector.connect(
-        host="localhost",
-        user="sasha",
-        passwd="admin",
-        database="imonomy_db"
-    )
-
 
 # Data for API
 url = 'http://88.214.193.118/ssp_xml.php'
@@ -59,7 +50,7 @@ for item in items:
 
     lst.append(a)
 
-if data_save.save_data(lst, my_db):
+if saving_data.data_saver(lst, db):
     print 'Data successfully saved'
 else:
     print 'Something goes wrong'

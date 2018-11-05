@@ -2,7 +2,7 @@
 from datetime import date
 
 
-def save_data(data_list, my_db):
+def data_saver(data_list, my_db):
     my_cursor = my_db.cursor()
     # my_cursor.execute('DROP TABLE API_Data;')
     # return
