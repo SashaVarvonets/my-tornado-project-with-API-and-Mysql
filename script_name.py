@@ -1,5 +1,6 @@
 import data_save
 
+import mysql.connector
 import sys
 import argparse
 from datetime import date, timedelta
@@ -18,6 +19,15 @@ try:
     start, end = namespace.date_ranges.split('_')
 except:
     start, end = date.today() - timedelta(7), date.today()
+
+
+# Data for SQL queries
+my_db = mysql.connector.connect(
+        host="localhost",
+        user="sasha",
+        passwd="admin",
+        database="imonomy_db"
+    )
 
 
 # Data for API
@@ -49,7 +59,7 @@ for item in items:
 
     lst.append(a)
 
-if data_save.save_data(lst):
+if data_save.save_data(lst, my_db):
     print 'Data successfully saved'
 else:
     print 'Something goes wrong'
