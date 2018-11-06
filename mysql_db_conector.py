@@ -1,8 +1,8 @@
 import mysql.connector
 
 host="localhost"
-user="root"
-password="root"
+user="sasha"
+password="admin"
 database="imonomy_db"
 
 

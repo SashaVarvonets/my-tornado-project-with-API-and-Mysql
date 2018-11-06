@@ -42,8 +42,9 @@ items = root.getchildren()
 
 lst = []
 for item in items:
+    # make dict
     a = item.attrib
-
+    # get children
     appt_children = item.getchildren()
     for appt_child in appt_children:
         a[appt_child.tag] = appt_child.text
