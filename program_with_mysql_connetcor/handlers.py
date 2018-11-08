@@ -24,7 +24,18 @@ class DefaultDataHandler(tornado.web.RequestHandler):
         if not end_date:
             end_date = date.today()
 
+        cursor = self.db.cursor()
         query = "SELECT date, client_name, responses, impressions, revenue FROM API_Data WHERE date BETWEEN %s AND %s"
-        items = self.db.query(query, start_date, end_date)
+        cursor.execute(query, (start_date, end_date))
+        my_result = cursor.fetchall()
+
+        items = []
+        # if need make a list of objects
+        for row in my_result:
+            a = RowObject(*row)
+            items.append(a)
+
+        # if need make a list of lists
+        # items = [[j for j in i] for i in my_result]
 
         self.render("template.html", items=items, start_date=start_date, end_date=end_date)

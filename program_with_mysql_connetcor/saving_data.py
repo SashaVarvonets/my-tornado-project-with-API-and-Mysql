@@ -1,8 +1,9 @@
-
 from datetime import date
+from mysql_db_conector import my_db
 
 
-def data_saver(data_list, my_db):
+def data_saver(data_list):
+    today = date.today()
     my_cursor = my_db.cursor()
     # my_cursor.execute('DROP TABLE API_Data;')
     # return
@@ -19,13 +20,13 @@ def data_saver(data_list, my_db):
 
     for i in data_list:
         try:
-            val = (i['date'], 'Sasha', i['responses'], i['impressions'], i['revenue'], date.today())
+            val = (i['date'], 'Sasha', i['responses'], i['impressions'], i['revenue'], today)
             sql = "INSERT INTO API_Data (date, client_name, responses, impressions, revenue, date_created)" \
                   "VALUES (%s, %s, %s, %s, %s, %s);"
             my_cursor.execute(sql, val)
 
         except:
-            val = (i['responses'], i['impressions'], i['revenue'], date.today(), i['date'])
+            val = (i['responses'], i['impressions'], i['revenue'], today, i['date'])
             sql = "UPDATE API_Data Set responses=%s, impressions=%s, revenue=%s, date_updated=%s WHERE date=%s;"
             my_cursor.execute(sql, val)
         my_db.commit()

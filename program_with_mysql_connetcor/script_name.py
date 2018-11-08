@@ -1,7 +1,7 @@
 import requests
 import argparse
 
-from saving_data_with_torndb import data_saver
+import saving_data
 
 from datetime import date, timedelta
 
@@ -48,7 +48,9 @@ for item in items:
 
     lst.append(a)
 
-if data_saver(lst):
+print lst
+
+if saving_data.data_saver(lst):
     print 'Data successfully saved'
 else:
     print 'Something goes wrong'

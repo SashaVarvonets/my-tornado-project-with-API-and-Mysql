@@ -1,13 +1,13 @@
+import tornado.web
+import tornado.ioloop
+
+from torndb_conector import my_db
+from handlers import DefaultDataHandler
+
 if __name__ == "__main__":
 
-    from mysql_db_conector import db
-    from handlers import DefaultDataHandler
-
-    import tornado.ioloop
-    import tornado.web
-
     application = tornado.web.Application([
-        (r"/", DefaultDataHandler, dict(db=db))
+        (r"/", DefaultDataHandler, dict(db=my_db))
     ])
 
     application.listen(8888)
