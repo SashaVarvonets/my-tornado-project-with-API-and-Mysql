@@ -1,7 +1,7 @@
 import requests
 import argparse
 
-from saving_data_with_torndb import data_saver
+from data_saver import data_saver
 
 from datetime import date, timedelta
 
@@ -16,7 +16,7 @@ try:
 
     start, end = namespace.date_ranges.split('_')
 except:
-    start, end = date.today() - timedelta(7), date.today()
+    start, end = date.today() - timedelta(6), date.today()
 
 # Data for API
 url = 'http://88.214.193.118/ssp_xml.php'

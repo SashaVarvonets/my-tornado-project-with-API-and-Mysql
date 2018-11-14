@@ -8,35 +8,52 @@
                 table {
                     border-spacing: 0;
                 }
+                label {
+                display: block;
+                font: 1rem 'Fira Sans', sans-serif;
+                }
+
+                input,
+                label {
+                    margin: .4rem 0;
+                }
           </style>
     </head>
     <body>
         <form name="dates_form" method="get">
-            Start date:<br>
-            <input type="text" name="start_date" value="{{ start_date }}">
-            <br>End date:<br>
-            <input type="text" name="end_date" value="{{ end_date }}">
-                <br><br>
-            <input type="submit" value="Submit">
-    </form>
+            <label for="start">Start date:</label>
+            <input type="date" id="start" name="start_date" value="{{ start_date }}">
+            {% if start_date_error %}
+                {{ start_date_error }}
+            {% end %}
+            <label for="end">Start date:</label>
+            <input type="date" id="end" name="end_date" value="{{ end_date }}">
 
-      <table>
-          <tr>
-              <th>Data</th>
-              <th>Client name</th>
-              <th>Responses</th>
-              <th>Impressions</th>
-              <th>Revenue</th>
-          </tr>
-          {% for item in items %}
-              <tr>
-                  <td>{{ item.date }}</td>
-                  <td>{{ item.client_name }}</td>
-                  <td>{{ item.responses }}</td>
-                  <td>{{ item.impressions }}</td>
-                  <td>{{ item.revenue }}</td>
-              </tr>
-          {% end %}
-      </table>
+            {% if end_date_error %}
+                {{ end_date_error }}
+            {% end %}
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+
+        <table>
+            <tr>
+                <th>Data</th>
+                <th>Client name</th>
+                <th>Responses</th>
+                <th>Impressions</th>
+                <th>Revenue</th>
+            </tr>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.responses }}</td>
+                    <td>{{ item.impressions }}</td>
+                    <td>{{ item.revenue }}</td>
+                </tr>
+            {% end %}
+        </table>
     </body>
 </html>
