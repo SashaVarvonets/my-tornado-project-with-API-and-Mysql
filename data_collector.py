@@ -14,13 +14,12 @@ new_db = False
 # Pars arguments if they exist.
 parser = argparse.ArgumentParser()
 parser.add_argument('--date_ranges')
-parser.add_argument('--create_new_db')
+parser.add_argument('--new_db')
 namespace = parser.parse_args()
 if namespace.date_ranges:
     start, end = namespace.date_ranges.split('_')
-if namespace.create_new_db:
+if namespace.new_db:
     new_db = True
-
 
 # Data for API
 url = 'http://88.214.193.118/ssp_xml.php'
