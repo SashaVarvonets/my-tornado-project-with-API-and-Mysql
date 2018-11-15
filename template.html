@@ -1,59 +1,49 @@
 <html>
     <head>
-          <style>
-                table, th, td {
-                    border: 1px solid black;
-                    text-align: center;
-                }
-                table {
-                    border-spacing: 0;
-                }
-                label {
-                display: block;
-                font: 1rem 'Fira Sans', sans-serif;
-                }
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            th, td {
+                text-align: center;
+            }
+        </style>
+        </head>
+        <body>
+            <form name="dates_form" method="get">
+                <label for="start"><h3>Start date:</h3></label>
+                <input type="date" id="start" name="start_date" value="{{ start_date }}">
+                {% if start_date_error %}
+                    {{ start_date_error }}
+                {% end %}
+                <label for="end"><h3>Start date:</h3></label>
+                <input type="date" id="end" name="end_date" value="{{ end_date }}">
 
-                input,
-                label {
-                    margin: .4rem 0;
-                }
-          </style>
-    </head>
-    <body>
-        <form name="dates_form" method="get">
-            <label for="start">Start date:</label>
-            <input type="date" id="start" name="start_date" value="{{ start_date }}">
-            {% if start_date_error %}
-                {{ start_date_error }}
-            {% end %}
-            <label for="end">Start date:</label>
-            <input type="date" id="end" name="end_date" value="{{ end_date }}">
+                {% if end_date_error %}
+                    {{ end_date_error }}
+                {% end %}
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
 
-            {% if end_date_error %}
-                {{ end_date_error }}
-            {% end %}
-            <br><br>
-            <input type="submit" value="Submit">
-        </form>
-
-
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Client name</th>
-                <th>Responses</th>
-                <th>Impressions</th>
-                <th>Revenue</th>
-            </tr>
-            {% for item in items %}
+            <table class="table table-bordered">
                 <tr>
-                    <td>{{ item.date }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.responses }}</td>
-                    <td>{{ item.impressions }}</td>
-                    <td>{{ item.revenue }}</td>
+                    <th>Data</th>
+                    <th>Client name</th>
+                    <th>Responses</th>
+                    <th>Impressions</th>
+                    <th>Revenue</th>
                 </tr>
-            {% end %}
-        </table>
-    </body>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.date }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.responses }}</td>
+                        <td>{{ item.impressions }}</td>
+                        <td>{{ item.revenue }}</td>
+                    </tr>
+                {% end %}
+            </table>
+        </body>
 </html>

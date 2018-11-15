@@ -7,16 +7,20 @@ from datetime import date, timedelta
 
 import xml.etree.cElementTree as etree
 
-# Parse additional argument
-try:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--date_ranges')
 
-    namespace = parser.parse_args()
+start, end = date.today() - timedelta(6), date.today()
+new_db = False
 
+# Pars arguments if they exist.
+parser = argparse.ArgumentParser()
+parser.add_argument('--date_ranges')
+parser.add_argument('--create_new_db')
+namespace = parser.parse_args()
+if namespace.date_ranges:
     start, end = namespace.date_ranges.split('_')
-except:
-    start, end = date.today() - timedelta(6), date.today()
+if namespace.create_new_db:
+    new_db = True
+
 
 # Data for API
 url = 'http://88.214.193.118/ssp_xml.php'
@@ -48,7 +52,7 @@ for item in items:
 
     lst.append(a)
 
-if data_saver(lst):
+if data_saver(lst, new_db):
     print 'Data successfully saved'
 else:
     print 'Something goes wrong'

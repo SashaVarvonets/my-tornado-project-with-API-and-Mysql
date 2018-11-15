@@ -12,27 +12,25 @@ class DefaultDataHandler(tornado.web.RequestHandler):
         start_date = date.today() - timedelta(6)
         end_date = date.today()
 
-        # check if GET request has agrs
+        # checking if the GET request has arguments
         if self.request.arguments:
             # Get arguments
             start_date = self.get_argument("start_date", None)
             end_date = self.get_argument("end_date", None)
 
-            # Check is start_date correct
+            # Checking if start_date is correct
             try:
                 start_date = date.strftime(date(*[int(i)for i in start_date.split('-')]), "%Y-%m-%d")
             except Exception as e:
                 print start_date, e
-                start_date_error = 'Write correct start date like "2000-12-01!\n"'
-                start_date = date.today() - timedelta(6)
+                start_date_error = 'Write correct start date like "2000-12-01"'
 
-            # Check is end_date correct
+            # Checking if end_date is correct
             try:
                 end_date = date.strftime(date(*[int(i)for i in end_date.split('-')]), "%Y-%m-%d")
-            except:
-                print end_date
-                end_date_error += 'Write correct end date like "2000-12-01"'
-                end_date = date.today()
+            except Exception as e:
+                print end_date, e
+                end_date_error = 'Write correct end date like "2000-12-01"'
 
         items = self.db.get_values_between_dates(start_date, end_date)
 
